@@ -19,10 +19,11 @@ io.on('connection', (socket) => {
     socket.emit('message', 'Welcome!!')
     socket.broadcast.emit('message', 'new user joined')
 
-    socket.on('sendMessage', (message) => {
+    socket.on('sendMessage', (message,callback) => {
 
-        console.log('called.........')
+        
         io.emit('message', message)
+        callback()
     })
     socket.on('disconnect', () => {
         io.emit('message', "user left")
