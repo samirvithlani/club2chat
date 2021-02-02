@@ -7,12 +7,16 @@ const $messasgeFormInput = document.querySelector('input')
 const $messasgeFormButton = document.querySelector('button')
 const $messages = document.querySelector('#messages')
 const messagTemplate = document.querySelector('#messags-template').innerHTML
+const uname ="samir"
+const room ="sam"
+
 socket.on('message', (message) => {
     console.log(message)
     const html = Mustache.render(messagTemplate, {
-        message
+        message:message.text,
+        createdAt:moment(message.createAt).format('hh:mm:s:a')
     })
-    $messages.insertAdjacentHTML('beforebegin', html)
+    $messages.insertAdjacentHTML('afterend', html)
 })
 
 document.querySelector('#message-form').addEventListener('submit', (e) => {
@@ -59,8 +63,4 @@ document.querySelector('#send-location').addEventListener('click', () => {
 /* document.querySelector("#increment").addEventListener('click', () => {
     socket.emit('increment')
 })  */
-
-
-
-
-
+socket.emit('join',{uname,room})
